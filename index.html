@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Dashboard v1.0.0</title>
+
+  <!-- Leaflet: the map library (CSS first, then JS) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    /* ---------- Page layout ---------- */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #17262b;
+      color: #f5f2ea;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    h1 { margin: 0; font-size: 22px; }
+    h1 span { color: #e8834a; }
+
+    /* ---------- KPI cards ---------- */
+    .kpis { display: flex; gap: 12px; flex-wrap: wrap; }
+    .kpi {
+      background: #22363c;
+      border-radius: 10px;
+      padding: 8px 16px;
+      min-width: 140px;
+    }
+    .kpi small { display: block; color: #bccbc8; font-size: 12px; }
+    .kpi strong { font-size: 22px; }
+
+    /* ---------- The map fills the rest of the page ---------- */
+    #map { flex: 1; }
+
+    /* ---------- Legend box ---------- */
+    .legend {
+      background: #fffdf7;
+      color: #17262b;
+      padding: 10px 14px;
+      border-radius: 8px;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+    .dot {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    /* ---------- Station popup (on click) ---------- */
+    .station-popup .leaflet-popup-content-wrapper {
+      background: #17262b;
+      color: #f5f2ea;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .station-popup .leaflet-popup-tip { background: #17262b; }
+    .station-popup .leaflet-popup-content { margin: 14px 16px; min-width: 200px; }
+    .station-popup a.leaflet-popup-close-button { color: #bccbc8; }
+
+    .popup-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding-right: 14px; /* room for the close button */
+    }
+    .popup-id { font-size: 18px; font-weight: 700; }
+    .popup-type {
+      display: block;
+      font-size: 12px;
+      color: #bccbc8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .pill {
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+    .popup-rows {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 14px;
+      font-size: 13px;
+      border-top: 1px solid #2f454b;
+      padding-top: 10px;
+    }
+    .popup-rows dt { color: #bccbc8; }
+    .popup-rows dd { margin: 0; text-align: right; font-weight: 600; }
+
+    /* ---------- Station label (on hover) ---------- */
+    .station-tooltip {
+      background: #17262b;
+      color: #f5f2ea;
+      border: none;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .station-tooltip::before { border-top-color: #17262b; }
+
+    .popup-link { margin: 10px 0 0; font-size: 13px; }
+    .popup-link a { color: #e8834a; font-weight: 600; text-decoration: none; }
+    .popup-link a:hover { text-decoration: underline; }
+
+    .dot-big {
+      width: 16px; height: 16px;
+      background: #bccbc8;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1px #bccbc8;
+    }
+    .legend-note { margin-top: 6px; font-size: 11px; color: #4b5a5f; line-height: 1.4; }
+
+    /* ---------- "About this map" info box ---------- */
+    .about { max-width: 320px; }
+    .about-btn {
+      background: #17262b;
+      color: #f5f2ea;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font: 600 14px system-ui, sans-serif;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .about-btn:hover { background: #22363c; }
+    .about-panel {
+      display: none;
+      margin-top: 8px;
+      background: #17262b;
+      color: #f5f2ea;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .about:hover .about-panel,
+    .about.open .about-panel { display: block; }
+    .about-panel h3 { margin: 0 0 6px; font-size: 15px; color: #e8834a; }
+    .about-panel p { margin: 0 0 8px; }
+    .about-panel ul { margin: 0 0 8px; padding-left: 18px; }
+    .about-panel a { color: #e8834a; font-weight: 600; }
+    .about-panel small { color: #bccbc8; }
+    .about-photo { margin: 0 0 12px; }
+    .about-photo img {
+      display: block;
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .about-photo figcaption { margin-top: 4px; font-size: 11px; color: #bccbc8; }
+
+    /* Hide the square focus box browsers draw around a clicked marker */
+    path.leaflet-interactive:focus { outline: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Nebula Atlas <span>· PAGeNet Stations</span></h1>
+    <div class="kpis">
+      <div class="kpi"><small>Stations</small><strong id="kpi-total">–</strong></div>
+      <div class="kpi"><small>IGS stations</small><strong id="kpi-igs">–</strong></div>
+      <div class="kpi"><small>Provinces covered</small><strong id="kpi-provinces">–</strong></div>
+      <div class="kpi"><small>Newest install</small><strong id="kpi-newest">–</strong></div>
+    </div>
+  </header>
+
+  <div id="map"></div>
+
+  <!-- Your private settings (API keys). Copy config.example.js to config.js. Optional. -->
+  <script src="config.js" onerror="console.info('No config.js found: keyed basemaps are off.')"></script>
+
+  <script>
+    // 1. Create the map. Leaflet wants [lat, lon] here, the REVERSE of GeoJSON!
+    const map = L.map("map").setView([12.5, 122.0], 6); // the whole Philippines
+
+    // 2. Basemaps. Each one is a tile layer; always credit the data source.
+    const basemaps = {
+      "Streets (OpenStreetMap)": L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors",
+      }),
+      "Satellite (Esri)": L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        {
+          maxZoom: 19,
+          attribution: "Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+        }
+      ),
+      "Topographic (OpenTopoMap)": L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+        maxZoom: 17,
+        attribution: "&copy; OpenStreetMap contributors, SRTM | Style: &copy; OpenTopoMap (CC-BY-SA)",
+      }),
+    };
+
+    // CARTO basemaps. The API key comes from config.js (see config.example.js).
+    // Works whether config.js uses `window.NEBULA_CONFIG = {...}` or `const NEBULA_CONFIG = {...}`.
+    const config = typeof NEBULA_CONFIG !== "undefined" ? NEBULA_CONFIG : (window.NEBULA_CONFIG || {});
+    const cartoKey = config.CARTO_API_KEY;
+    console.info(cartoKey ? "CARTO key loaded from config.js" : "No CARTO key found: CARTO tiles may not load");
+
+    // CARTO expects the key as ?key=YOUR_KEY (see github.com/CartoDB/basemap-styles)
+    const keyParam = cartoKey ? `?key=${encodeURIComponent(cartoKey)}` : "";
+    const cartoOptions = { maxZoom: 20, attribution: "&copy; OpenStreetMap contributors &copy; CARTO" };
+    basemaps["Light (CARTO)"] = L.tileLayer(
+      `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png${keyParam}`, cartoOptions
+    );
+    basemaps["Dark (CARTO)"] = L.tileLayer(
+      `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${keyParam}`, cartoOptions
+    );
+
+    // Start on CARTO Light when there's a key; otherwise fall back to Streets
+    const defaultBasemap = cartoKey ? "Light (CARTO)" : "Streets (OpenStreetMap)";
+    basemaps[defaultBasemap].addTo(map);
+
+    // Add the switcher (top-right corner)
+    const layerSwitcher = L.control.layers(basemaps, {}, { collapsed: false }).addTo(map);
+
+    // 3. Color stations by when they were installed. Pair color with text (legend + popup).
+    const eras = [
+      { label: "2008–2012", from: 2008, to: 2012, color: "#8b1e3f" }, // dark red: the first stations
+      { label: "2013–2018", from: 2013, to: 2018, color: "#e8834a" }, // orange
+      { label: "2019–2025", from: 2019, to: 2025, color: "#2f6fb0" }, // blue: the newest
+    ];
+    const eraOf = (year) => eras.find((e) => year >= e.from && year <= e.to) ?? eras[eras.length - 1];
+
+    // 4. Load the GeoJSON file and draw it
+    fetch("pagenet_stations.geojson")
+      .then((response) => response.json())
+      .then((data) => {
+        const layer = L.geoJSON(data, {
+          // Draw each Point as a colored circle instead of the default pin.
+          // IGS stations (part of the global network) get a bigger circle.
+          pointToLayer: (feature, latlng) =>
+            L.circleMarker(latlng, {
+              radius: feature.properties.igs_station ? 11 : 7,
+              color: "#ffffff",
+              weight: 2,
+              fillColor: eraOf(feature.properties.year_installed).color,
+              fillOpacity: 0.9,
+            }),
+
+          onEachFeature: (feature, marker) => {
+            const p = feature.properties;
+            const era = eraOf(p.year_installed);
+
+            // Hover: a small label with the station code
+            marker.bindTooltip(p.station_code, {
+              direction: "top",
+              offset: [0, -8],
+              className: "station-tooltip",
+            });
+
+            // Click: a card with all the properties
+            marker.bindPopup(`
+              <div class="popup-head">
+                <div>
+                  <span class="popup-id">${p.station_code}</span>
+                  <span class="popup-type">${p.igs_station ? "PAGeNet · IGS" : "PAGeNet"}</span>
+                </div>
+                <span class="pill" style="background:${era.color}">${p.year_installed}</span>
+              </div>
+              <dl class="popup-rows">
+                <dt>Location</dt>  <dd>${p.location}</dd>
+                <dt>Province</dt>  <dd>${p.province}</dd>
+                <dt>Installed</dt> <dd>${p.year_installed}</dd>
+              </dl>
+              <p class="popup-link"><a href="${p.pagenet_url}" target="_blank" rel="noopener">Station page on NAMRIA →</a></p>
+            `, { className: "station-popup" });
+          },
+        }).addTo(map);
+
+        // Let users turn the stations on and off in the same switcher
+        layerSwitcher.addOverlay(layer, "PAGeNet stations");
+
+        // Zoom the map to fit all stations
+        map.fitBounds(layer.getBounds(), { padding: [30, 30] });
+
+        // 5. Compute the KPIs from the properties
+        const stations = data.features.map((f) => f.properties);
+        const igs = stations.filter((s) => s.igs_station);
+        const provinces = new Set(stations.map((s) => s.province));
+        const newest = Math.max(...stations.map((s) => s.year_installed));
+
+        document.getElementById("kpi-total").textContent = stations.length;
+        document.getElementById("kpi-igs").textContent = igs.length;
+        document.getElementById("kpi-provinces").textContent = provinces.size;
+        document.getElementById("kpi-newest").textContent = newest;
+      })
+      .catch((error) => {
+        // Most common cause: opening this file directly instead of through a server
+        alert("Couldn't load the GeoJSON. Run: python -m http.server 8080");
+        console.error(error);
+      });
+
+    // 6. Add a legend in the bottom-right corner
+    const legend = L.control({ position: "bottomright" });
+    legend.onAdd = () => {
+      const div = L.DomUtil.create("div", "legend");
+      div.innerHTML =
+        "<b>Installed</b><br>" +
+        eras.map((e) => `<span class="dot" style="background:${e.color}"></span>${e.label}`).join("<br>") +
+        '<br><span class="dot dot-big"></span>IGS station' +
+        '<div class="legend-note">Town Center Positions are <br> approximate for demo only.</div>';
+      return div;
+    };
+    legend.addTo(map);
+
+    // 7. "About this map": hover (desktop) or tap (phone) to explain PAGeNet
+    const about = L.control({ position: "topleft" });
+    about.onAdd = () => {
+      const div = L.DomUtil.create("div", "about");
+      div.innerHTML = `
+        <button class="about-btn" type="button" aria-expanded="false">ⓘ About this map</button>
+        <div class="about-panel">
+          <!-- Photo loaded straight from NAMRIA's PAGeNet site. If it ever fails, the photo box hides itself. -->
+          <figure class="about-photo">
+            <img src="https://pagenet.namria.gov.ph/AGN/SitePictures/PBOR/PBOR_North.jpg"
+                 alt="PBOR, a PAGeNet GNSS reference station in Borongan, Eastern Samar"
+                 referrerpolicy="no-referrer" loading="lazy"
+                 onerror="this.closest('figure').remove()">
+            <figcaption>PBOR station, Borongan · Photo: <a href="https://pagenet.namria.gov.ph/AGN/2018PBOR.aspx" target="_blank" rel="noopener">NAMRIA PAGeNet</a></figcaption>
+          </figure>
+          <h3>What is PAGeNet?</h3>
+          <p>The <b>Philippine Active Geodetic Network</b>: NAMRIA's network of permanent,
+          continuously operating GNSS reference stations, started in 2008.</p>
+          <ul>
+            <li>Sends <b>real-time corrections</b> over the internet (NTRIP) for precise RTK positioning</li>
+            <li>Shares <b>RINEX data</b> for post-processing your GNSS surveys</li>
+            <li>Three stations (PTAG, PPPC, PGEN) are also part of the global <b>IGS</b> network</li>
+          </ul>
+          <p>Think of each station as a benchmark that never sleeps: your rover measures relative to it.</p>
+          <small>Reference list: <a href="https://pagenet.namria.gov.ph/AGN/AGSmain.aspx" target="_blank" rel="noopener">NAMRIA PAGeNet</a>.
+          Map positions are approximate (town centers) and for demo purposes only.</small>
+        </div>`;
+
+      // Tap/click to keep it open (useful on phones, where there's no hover)
+      const button = div.querySelector(".about-btn");
+      button.addEventListener("click", () => {
+        const open = div.classList.toggle("open");
+        button.setAttribute("aria-expanded", open);
+      });
+
+      // Stop clicks and scrolls inside the box from moving the map
+      L.DomEvent.disableClickPropagation(div);
+      L.DomEvent.disableScrollPropagation(div);
+      return div;
+    };
+    about.addTo(map);
+
+    // ---------- TRY THIS ----------
+    // a) Find the PAGeNet station nearest your home town. Which one is it?
+    // b) Add a fourth era color, or change the year ranges in `eras`.
+    // c) Add a KPI: how many stations were installed in 2014 alone?
+    // d) Replace pagenet_stations.geojson with your own export from QGIS (EPSG:4326).
+  </script>
+</body>
+</html>

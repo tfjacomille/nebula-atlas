@@ -1,0 +1,1271 @@
+{
+  "type": "FeatureCollection",
+  "name": "pagenet_stations",
+  "metadata": {
+    "source": "Station list: NAMRIA PAGeNet (pagenet.namria.gov.ph/AGN/AGSmain.aspx), retrieved 2026-11-06",
+    "positions": "APPROXIMATE: center of the host city/municipality from GeoNames (CC BY 4.0), not the station monument. For teaching only; do not use for surveying.",
+    "official_coordinates": "Contact NAMRIA for official station coordinates."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.0792,
+          14.5243
+        ]
+      },
+      "properties": {
+        "station_code": "PTAG",
+        "location": "Taguig City",
+        "province": "Metro Manila",
+        "year_installed": 2008,
+        "igs_station": true,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2008PTAG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5711,
+          15.9761
+        ]
+      },
+      "properties": {
+        "station_code": "PURD",
+        "location": "Urdaneta City",
+        "province": "Pangasinan",
+        "year_installed": 2008,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2008PURD.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5285,
+          14.9775
+        ]
+      },
+      "properties": {
+        "station_code": "PFLO",
+        "location": "Floridablanca",
+        "province": "Pampanga",
+        "year_installed": 2008,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2008PFLO.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.9335,
+          14.0953
+        ]
+      },
+      "properties": {
+        "station_code": "PTGY",
+        "location": "Tagaytay City",
+        "province": "Cavite",
+        "year_installed": 2008,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2008PTGY.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.1497,
+          16.4812
+        ]
+      },
+      "properties": {
+        "station_code": "PBAY",
+        "location": "Bayombong",
+        "province": "Nueva Vizcaya",
+        "year_installed": 2009,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2009PBAY.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.7344,
+          13.1372
+        ]
+      },
+      "properties": {
+        "station_code": "PLEG",
+        "location": "Legazpi City",
+        "province": "Albay",
+        "year_installed": 2009,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2009PLEG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.0047,
+          11.2433
+        ]
+      },
+      "properties": {
+        "station_code": "PTAC",
+        "location": "Tacloban City",
+        "province": "Leyte",
+        "year_installed": 2009,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2009PTAC.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.495,
+          9.789
+        ]
+      },
+      "properties": {
+        "station_code": "PSUR",
+        "location": "Surigao City",
+        "province": "Surigao del Norte",
+        "year_installed": 2009,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2009PSUR.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.5644,
+          10.6969
+        ]
+      },
+      "properties": {
+        "station_code": "PILC",
+        "location": "Iloilo City",
+        "province": "Iloilo",
+        "year_installed": 2009,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2010PILC.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.1717,
+          6.1128
+        ]
+      },
+      "properties": {
+        "station_code": "PGEN",
+        "location": "General Santos City",
+        "province": "South Cotabato",
+        "year_installed": 2010,
+        "igs_station": true,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2010PGEN.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7353,
+          9.7392
+        ]
+      },
+      "properties": {
+        "station_code": "PPPC",
+        "location": "Puerto Princesa",
+        "province": "Palawan",
+        "year_installed": 2010,
+        "igs_station": true,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2010PPPC.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.9665,
+          15.4859
+        ]
+      },
+      "properties": {
+        "station_code": "PCB2",
+        "location": "Cabanatuan City",
+        "province": "Nueva Ecija",
+        "year_installed": 2012,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2012PCB2.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.7541,
+          8.5395
+        ]
+      },
+      "properties": {
+        "station_code": "PTGO",
+        "location": "Tagoloan",
+        "province": "Misamis Oriental",
+        "year_installed": 2012,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2012PTGO.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.6128,
+          7.0731
+        ]
+      },
+      "properties": {
+        "station_code": "PDAV",
+        "location": "Davao City",
+        "province": "Davao del Sur",
+        "year_installed": 2012,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2012PDAV.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4857,
+          14.4338
+        ]
+      },
+      "properties": {
+        "station_code": "PMRV",
+        "location": "Mariveles",
+        "province": "Bataan",
+        "year_installed": 2012,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2012PMRV.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.4161,
+          14.2814
+        ]
+      },
+      "properties": {
+        "station_code": "PSTC",
+        "location": "Santa Cruz",
+        "province": "Laguna",
+        "year_installed": 2012,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2012PSTC.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.9622,
+          14.9483
+        ]
+      },
+      "properties": {
+        "station_code": "PSRF",
+        "location": "San Rafael",
+        "province": "Bulacan",
+        "year_installed": 2013,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2013PSRF.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.7269,
+          17.6131
+        ]
+      },
+      "properties": {
+        "station_code": "PTUG",
+        "location": "Tuguegarao City",
+        "province": "Cagayan",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PTUG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.0739,
+          6.9103
+        ]
+      },
+      "properties": {
+        "station_code": "PZAM",
+        "location": "Zamboanga City",
+        "province": "Zamboanga del Sur",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PZAM.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.3644,
+          11.7061
+        ]
+      },
+      "properties": {
+        "station_code": "PKAL",
+        "location": "Kalibo",
+        "province": "Aklan",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PKAL.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.8907,
+          10.3167
+        ]
+      },
+      "properties": {
+        "station_code": "PCEB",
+        "location": "Cebu City",
+        "province": "Cebu",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PCEB.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.3026,
+          9.3072
+        ]
+      },
+      "properties": {
+        "station_code": "PDUM",
+        "location": "Dumaguete City",
+        "province": "Negros Oriental",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PDUM.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.6249,
+          12.3717
+        ]
+      },
+      "properties": {
+        "station_code": "PMAS",
+        "location": "Masbate City",
+        "province": "Masbate",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PMAS.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.8614,
+          13.4744
+        ]
+      },
+      "properties": {
+        "station_code": "PMOG",
+        "location": "Mogpog",
+        "province": "Marinduque",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PMOG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.3956,
+          11.1858
+        ]
+      },
+      "properties": {
+        "station_code": "PNDO",
+        "location": "El Nido",
+        "province": "Palawan",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PNDO.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.6377,
+          12.4989
+        ]
+      },
+      "properties": {
+        "station_code": "PCAT",
+        "location": "Catarman",
+        "province": "Northern Samar",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PCAT.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.9702,
+          20.4487
+        ]
+      },
+      "properties": {
+        "station_code": "PBAS",
+        "location": "Basco",
+        "province": "Batanes",
+        "year_installed": 2014,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2014PBAS.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.1478,
+          18.4699
+        ]
+      },
+      "properties": {
+        "station_code": "PSTN",
+        "location": "Santa Ana",
+        "province": "Cagayan",
+        "year_installed": 2015,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2015PSTN.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.2464,
+          7.2236
+        ]
+      },
+      "properties": {
+        "station_code": "PCOT",
+        "location": "Cotabato City",
+        "province": "Maguindanao",
+        "year_installed": 2015,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2015PCOT.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.3409,
+          8.5883
+        ]
+      },
+      "properties": {
+        "station_code": "PDIP",
+        "location": "Dipolog City",
+        "province": "Zamboanga del Norte",
+        "year_installed": 2015,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2015PDIP.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.8078,
+          7.4478
+        ]
+      },
+      "properties": {
+        "station_code": "PDDN",
+        "location": "Tagum City",
+        "province": "Davao del Norte",
+        "year_installed": 2015,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2015PDDN.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5649,
+          18.0554
+        ]
+      },
+      "properties": {
+        "station_code": "PBAT",
+        "location": "Batac City",
+        "province": "Ilocos Norte",
+        "year_installed": 2015,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2015PBAT.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.1803,
+          13.4117
+        ]
+      },
+      "properties": {
+        "station_code": "PCLP",
+        "location": "Calapan City",
+        "province": "Oriental Mindoro",
+        "year_installed": 2015,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2015PCLP.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4517,
+          17.1947
+        ]
+      },
+      "properties": {
+        "station_code": "PCDN",
+        "location": "Candon City",
+        "province": "Ilocos Sur",
+        "year_installed": 2016,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2016PCDN.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.0803,
+          15.0143
+        ]
+      },
+      "properties": {
+        "station_code": "PSNR",
+        "location": "San Narciso",
+        "province": "Zambales",
+        "year_installed": 2016,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2016PSNR.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.3164,
+          8.2153
+        ]
+      },
+      "properties": {
+        "station_code": "PBIS",
+        "location": "Bislig City",
+        "province": "Surigao del Sur",
+        "year_installed": 2016,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2016PBIS.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5979,
+          15.4802
+        ]
+      },
+      "properties": {
+        "station_code": "PTLC",
+        "location": "Tarlac City",
+        "province": "Tarlac",
+        "year_installed": 2016,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2016PTLC.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.1814,
+          13.6192
+        ]
+      },
+      "properties": {
+        "station_code": "PNAG",
+        "location": "Naga City",
+        "province": "Camarines Sur",
+        "year_installed": 2016,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2016PNAG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.4319,
+          11.6081
+        ]
+      },
+      "properties": {
+        "station_code": "PBOR",
+        "location": "Borongan",
+        "province": "Eastern Samar",
+        "year_installed": 2018,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2018PBOR.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.4008,
+          13.8303
+        ]
+      },
+      "properties": {
+        "station_code": "PSJN",
+        "location": "San Juan",
+        "province": "Batangas",
+        "year_installed": 2018,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2018PSJN.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.437,
+          7.8257
+        ]
+      },
+      "properties": {
+        "station_code": "PPAG",
+        "location": "Pagadian City",
+        "province": "Zamboanga del Sur",
+        "year_installed": 2018,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2018PPAG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.0053,
+          7.7633
+        ]
+      },
+      "properties": {
+        "station_code": "PMRM",
+        "location": "Maramag",
+        "province": "Bukidnon",
+        "year_installed": 2018,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2018PMRM.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.1002,
+          13.921
+        ]
+      },
+      "properties": {
+        "station_code": "PGUM",
+        "location": "Gumaca",
+        "province": "Quezon",
+        "year_installed": 2018,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2018PGUM.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5931,
+          16.4164
+        ]
+      },
+      "properties": {
+        "station_code": "PBGU",
+        "location": "Baguio City",
+        "province": "Benguet",
+        "year_installed": 2018,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2018PBGU.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.9933,
+          12.9739
+        ]
+      },
+      "properties": {
+        "station_code": "PSRG",
+        "location": "Sorsogon City",
+        "province": "Sorsogon",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PSRG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.8892,
+          17.1485
+        ]
+      },
+      "properties": {
+        "station_code": "PILN",
+        "location": "Ilagan City",
+        "province": "Isabela",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PILN.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.6406,
+          18.3566
+        ]
+      },
+      "properties": {
+        "station_code": "PAPI",
+        "location": "Aparri",
+        "province": "Cagayan",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PAPI.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.3869,
+          17.5747
+        ]
+      },
+      "properties": {
+        "station_code": "PVIG",
+        "location": "Vigan City",
+        "province": "Ilocos Sur",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PVIG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.9502,
+          15.5363
+        ]
+      },
+      "properties": {
+        "station_code": "PMSC",
+        "location": "Masinloc",
+        "province": "Zambales",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PMSC.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.4878,
+          9.7629
+        ]
+      },
+      "properties": {
+        "station_code": "PGUI",
+        "location": "Guindulman",
+        "province": "Bohol",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PGUI.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.88,
+          9.722
+        ]
+      },
+      "properties": {
+        "station_code": "PCRT",
+        "location": "Cortes",
+        "province": "Bohol",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PCRT.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.0055,
+          11.0517
+        ]
+      },
+      "properties": {
+        "station_code": "PBOG",
+        "location": "Bogo City",
+        "province": "Cebu",
+        "year_installed": 2019,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2019PBOG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.2003,
+          13.4117
+        ]
+      },
+      "properties": {
+        "station_code": "PCL2",
+        "location": "Calapan City",
+        "province": "Oriental Mindoro",
+        "year_installed": 2021,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2021CLP2.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.1202,
+          13.921
+        ]
+      },
+      "properties": {
+        "station_code": "PGM2",
+        "location": "Gumaca",
+        "province": "Quezon",
+        "year_installed": 2021,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2021PGM2.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.4986,
+          6.0392
+        ]
+      },
+      "properties": {
+        "station_code": "PMAI",
+        "location": "Maitum",
+        "province": "Sarangani",
+        "year_installed": 2021,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2021PMAI.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.2165,
+          6.9551
+        ]
+      },
+      "properties": {
+        "station_code": "PMAT",
+        "location": "Mati City",
+        "province": "Davao Oriental",
+        "year_installed": 2021,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2021PMAT.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.6764,
+          6.6925
+        ]
+      },
+      "properties": {
+        "station_code": "PTCG",
+        "location": "Tacurong City",
+        "province": "Sultan Kudarat",
+        "year_installed": 2021,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2021PTCG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.7544,
+          13.1372
+        ]
+      },
+      "properties": {
+        "station_code": "PLG2",
+        "location": "Legazpi City",
+        "province": "Albay",
+        "year_installed": 2022,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2022PLEG2.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.2708,
+          12.5751
+        ]
+      },
+      "properties": {
+        "station_code": "PROM",
+        "location": "Romblon",
+        "province": "Romblon",
+        "year_installed": 2022,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2022PROM.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.4042,
+          9.7519
+        ]
+      },
+      "properties": {
+        "station_code": "PSIP",
+        "location": "Sipalay City",
+        "province": "Negros Occidental",
+        "year_installed": 2022,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2022PSIP.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.0676,
+          12.3528
+        ]
+      },
+      "properties": {
+        "station_code": "PSJM",
+        "location": "San Jose",
+        "province": "Occidental Mindoro",
+        "year_installed": 2022,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2022PSJM.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.28,
+          11.05
+        ]
+      },
+      "properties": {
+        "station_code": "PKLY",
+        "location": "Kalayaan",
+        "province": "Palawan",
+        "year_installed": 2023,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2023PKLY.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.8333,
+          10.5333
+        ]
+      },
+      "properties": {
+        "station_code": "PBGO",
+        "location": "Bago City",
+        "province": "Negros Occidental",
+        "year_installed": 2023,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2023PBGO.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.2319,
+          16.0218
+        ]
+      },
+      "properties": {
+        "station_code": "PLGY",
+        "location": "Lingayen",
+        "province": "Pangasinan",
+        "year_installed": 2023,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2023PLGY.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.9031,
+          15.7161
+        ]
+      },
+      "properties": {
+        "station_code": "PMNZ",
+        "location": "Science City of Muñoz",
+        "province": "Nueva Ecija",
+        "year_installed": 2024,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2024PMNZ.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.4115,
+          13.4324
+        ]
+      },
+      "properties": {
+        "station_code": "PIRI",
+        "location": "Iriga City",
+        "province": "Camarines Sur",
+        "year_installed": 2024,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2024PIRI.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.3572,
+          6.7497
+        ]
+      },
+      "properties": {
+        "station_code": "PDIG",
+        "location": "Digos City",
+        "province": "Davao del Sur",
+        "year_installed": 2024,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2024PDIG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.6596,
+          15.2151
+        ]
+      },
+      "properties": {
+        "station_code": "PMAG",
+        "location": "Magalang",
+        "province": "Pampanga",
+        "year_installed": 2025,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2025PMAG.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.9997,
+          11.78
+        ]
+      },
+      "properties": {
+        "station_code": "PMOT",
+        "location": "Motiong",
+        "province": "Samar",
+        "year_installed": 2025,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2025PMOT.aspx"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.5436,
+          8.9492
+        ]
+      },
+      "properties": {
+        "station_code": "PBUT",
+        "location": "Butuan City",
+        "province": "Agusan del Norte",
+        "year_installed": 2025,
+        "igs_station": false,
+        "pagenet_url": "https://pagenet.namria.gov.ph/AGN/2025PBUT.aspx"
+      }
+    }
+  ]
+}

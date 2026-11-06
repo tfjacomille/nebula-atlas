@@ -123,3 +123,5 @@ GitHub.sublime-settings
 
 #yarn-integrity
 node_modules/.yarn-integrity
+
+config.js
