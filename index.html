@@ -20,6 +20,7 @@
       display: flex;
       flex-direction: column;
       height: 100vh;
+      height: 100dvh; /* phones: excludes the browser's address bar */
     }
     header {
       padding: 16px 24px;
@@ -157,8 +158,11 @@
       line-height: 1.5;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     }
-    .about:hover .about-panel,
     .about.open .about-panel { display: block; }
+    /* Open on hover only where there's a real mouse (not on phones) */
+    @media (hover: hover) {
+      .about:hover .about-panel { display: block; }
+    }
     .about-panel h3 { margin: 0 0 6px; font-size: 15px; color: #e8834a; }
     .about-panel p { margin: 0 0 8px; }
     .about-panel ul { margin: 0 0 8px; padding-left: 18px; }
@@ -207,6 +211,37 @@
 
     /* Hide the square focus box browsers draw around a clicked marker */
     path.leaflet-interactive:focus { outline: none; }
+
+    /* ---------- Phones (640px wide or less) ---------- */
+    @media (max-width: 640px) {
+      header { padding: 10px 12px; gap: 8px; }
+      h1 { font-size: 16px; }
+
+      /* Four small KPI cards in one row */
+      .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; }
+      .kpi { min-width: 0; padding: 6px 8px; border-radius: 8px; }
+      .kpi small { font-size: 10px; line-height: 1.2; }
+      .kpi strong { font-size: 16px; }
+
+      /* Compact legend (it moves to the top-right on phones) */
+      .legend { padding: 6px 10px; font-size: 12px; line-height: 1.6; }
+      .legend .dot { width: 10px; height: 10px; }
+      .legend .dot-big { width: 13px; height: 13px; }
+      .legend-note { display: none; }
+
+      /* Year filter stretches across the bottom */
+      .year-filter { width: calc(100vw - 20px); padding: 10px 12px; }
+      .year-actions button { padding: 8px; } /* bigger tap targets */
+
+      /* About panel fits the screen and scrolls if needed */
+      .about { max-width: calc(100vw - 20px); }
+      .about-panel { max-height: 45dvh; overflow-y: auto; }
+      /* When the About panel is open, draw it above the legend and the year filter */
+      .leaflet-top.leaflet-left:has(.about.open) { z-index: 1001; }
+      .about-photo img { height: 120px; }
+
+      .leaflet-control-attribution { font-size: 9px; }
+    }
   </style>
 </head>
 <body>
@@ -269,8 +304,11 @@
     const defaultBasemap = cartoKey ? "Light (CARTO)" : "Streets (OpenStreetMap)";
     basemaps[defaultBasemap].addTo(map);
 
-    // Add the switcher (top-right corner)
-    const layerSwitcher = L.control.layers(basemaps, {}, { collapsed: false }).addTo(map);
+    // Phones get a more compact layout (matches the @media rule in the CSS)
+    const isPhone = window.matchMedia("(max-width: 640px)").matches;
+
+    // Add the switcher (top-right corner). On phones it folds into a small icon.
+    const layerSwitcher = L.control.layers(basemaps, {}, { collapsed: isPhone }).addTo(map);
 
     // 3. Color stations by when they were installed. Pair color with text (legend + popup).
     const eras = [
@@ -329,8 +367,8 @@
         // Let users turn the stations on and off in the same switcher
         layerSwitcher.addOverlay(layer, "PAGeNet stations");
 
-        // Zoom the map to fit all stations
-        map.fitBounds(layer.getBounds(), { padding: [30, 30] });
+        // Zoom the map to fit all stations (less padding on small screens)
+        map.fitBounds(layer.getBounds(), { padding: isPhone ? [10, 10] : [30, 30] });
 
         // Keep every marker so the filter can show and hide them
         const allMarkers = layer.getLayers();
@@ -374,8 +412,8 @@
         console.error(error);
       });
 
-    // 6. Add a legend in the bottom-right corner
-    const legend = L.control({ position: "bottomright" });
+    // 6. Add a legend: bottom-right on laptops, top-right on phones (the year filter needs the bottom)
+    const legend = L.control({ position: isPhone ? "topright" : "bottomright" });
     legend.onAdd = () => {
       const div = L.DomUtil.create("div", "legend");
       div.innerHTML =
@@ -394,12 +432,14 @@
       div.innerHTML = `
         <button class="about-btn" type="button" aria-expanded="false">ⓘ About this map</button>
         <div class="about-panel">
-          <!-- Photo loaded straight from NAMRIA's PAGeNet site. If it ever fails, the photo box hides itself. -->
+          <!-- Photo: the local copy in img/ first. If that's missing, try NAMRIA's site;
+               if that fails too, the photo box hides itself. -->
           <figure class="about-photo">
-            <img src="https://pagenet.namria.gov.ph/AGN/SitePictures/PBOR/PBOR_North.jpg"
+            <img src="img/sample_pagenet_gnss.jpg"
                  alt="PBOR, a PAGeNet GNSS reference station in Borongan, Eastern Samar"
                  referrerpolicy="no-referrer" loading="lazy"
-                 onerror="this.closest('figure').remove()">
+                 data-fallback="https://pagenet.namria.gov.ph/AGN/SitePictures/PBOR/PBOR_North.jpg"
+                 onerror="if (this.dataset.fallback) { this.src = this.dataset.fallback; delete this.dataset.fallback; } else { this.closest('figure').remove(); }">
             <figcaption>PBOR station, Borongan · Photo: <a href="https://pagenet.namria.gov.ph/AGN/2018PBOR.aspx" target="_blank" rel="noopener">NAMRIA PAGeNet</a></figcaption>
           </figure>
           <h3>What is PAGeNet?</h3>
