@@ -33,6 +33,9 @@
     h1 { margin: 0; font-size: 22px; }
     h1 span { color: #e8834a; }
 
+    .subtitle { display: block; margin-top: 2px; font-size: 13px; color: #bccbc8; }
+    @media (max-width: 640px) { .subtitle { font-size: 11px; } }
+
     /* ---------- KPI cards ---------- */
     .kpis { display: flex; gap: 12px; flex-wrap: wrap; }
     .kpi {
@@ -316,7 +319,10 @@
 <body>
 
   <header>
-    <h1>Nebula Atlas <span>· PAGeNet Stations</span></h1>
+    <div>
+      <h1><span>PAGeNet Stations</span> · NAMRIA</h1>
+      <small class="subtitle">Philippine Active Geodetic Network: GNSS reference stations across the Philippines</small>
+    </div>
     <div class="kpis">
       <div class="kpi"><small>Stations</small><strong id="kpi-total">–</strong></div>
       <div class="kpi"><small>IGS stations</small><strong id="kpi-igs">–</strong></div>
