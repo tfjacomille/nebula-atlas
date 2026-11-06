@@ -130,4 +130,5 @@ sftp-config.json
 .DS_Store
 Thumbs.db
 
-.initialized
+collaborators.txt
+invite_collaborators.sh
