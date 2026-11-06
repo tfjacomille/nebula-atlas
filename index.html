@@ -159,6 +159,10 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     }
     .about.open .about-panel { display: block; }
+    /* Fit the panel on screen (scroll if needed) and draw it above the legend and year filter */
+    .about-panel { max-height: calc(100dvh - 260px); overflow-y: auto; }
+    .leaflet-top.leaflet-left:has(.about.open),
+    .leaflet-top.leaflet-left:has(.about:hover) { z-index: 1001; }
     /* Open on hover only where there's a real mouse (not on phones) */
     @media (hover: hover) {
       .about:hover .about-panel { display: block; }
@@ -169,14 +173,80 @@
     .about-panel a { color: #e8834a; font-weight: 600; }
     .about-panel small { color: #bccbc8; }
     .about-photo { margin: 0 0 12px; }
+    .photo-button {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      background: none;
+      cursor: zoom-in;
+    }
     .about-photo img {
       display: block;
       width: 100%;
       height: 160px;
       object-fit: cover;
+      object-position: center 35%; /* keep the antenna in the crop */
       border-radius: 8px;
     }
+    .photo-hint {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      background: rgba(23, 38, 43, 0.85);
+      color: #f5f2ea;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
     .about-photo figcaption { margin-top: 4px; font-size: 11px; color: #bccbc8; }
+
+    /* ---------- Full-screen photo viewer ---------- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000; /* above every map control */
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(10, 18, 21, 0.97);
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: min(1100px, 100%);
+      max-height: 75dvh;
+      border-radius: 10px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+    .lightbox-caption {
+      max-width: 720px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #bccbc8;
+      cursor: auto;
+    }
+    .lightbox-caption b { color: #f5f2ea; }
+    .lightbox-caption a { color: #e8834a; font-weight: 600; }
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: #22363c;
+      color: #f5f2ea;
+      font-size: 22px;
+      cursor: pointer;
+    }
 
     /* ---------- Year filter (bottom-left) ---------- */
     .year-filter {
@@ -236,9 +306,8 @@
       /* About panel fits the screen and scrolls if needed */
       .about { max-width: calc(100vw - 20px); }
       .about-panel { max-height: 45dvh; overflow-y: auto; }
-      /* When the About panel is open, draw it above the legend and the year filter */
-      .leaflet-top.leaflet-left:has(.about.open) { z-index: 1001; }
       .about-photo img { height: 120px; }
+      .lightbox-caption { font-size: 13px; }
 
       .leaflet-control-attribution { font-size: 9px; }
     }
@@ -435,12 +504,15 @@
           <!-- Photo: the local copy in img/ first. If that's missing, try NAMRIA's site;
                if that fails too, the photo box hides itself. -->
           <figure class="about-photo">
-            <img src="img/sample_pagenet_gnss.jpg"
-                 alt="PBOR, a PAGeNet GNSS reference station in Borongan, Eastern Samar"
-                 referrerpolicy="no-referrer" loading="lazy"
-                 data-fallback="https://pagenet.namria.gov.ph/AGN/SitePictures/PBOR/PBOR_North.jpg"
-                 onerror="if (this.dataset.fallback) { this.src = this.dataset.fallback; delete this.dataset.fallback; } else { this.closest('figure').remove(); }">
-            <figcaption>PBOR station, Borongan · Photo: <a href="https://pagenet.namria.gov.ph/AGN/2018PBOR.aspx" target="_blank" rel="noopener">NAMRIA PAGeNet</a></figcaption>
+            <button class="photo-button" type="button" aria-label="Enlarge the station photo">
+              <img src="sample_pagenet_gnss.jpg"
+                   alt="A PAGeNet GNSS reference station: a white dome antenna on a fixed mount inside a fenced enclosure"
+                   referrerpolicy="no-referrer" loading="lazy"
+                   data-fallback="https://pagenet.namria.gov.ph/AGN/SitePictures/PBOR/PBOR_North.jpg"
+                   onerror="if (this.dataset.fallback) { this.src = this.dataset.fallback; delete this.dataset.fallback; } else { this.closest('figure').remove(); }">
+              <span class="photo-hint">⤢ Enlarge</span>
+            </button>
+            <figcaption>A PAGeNet reference station · Photo: <a href="https://pagenet.namria.gov.ph/AGN/AGSmain.aspx" target="_blank" rel="noopener">NAMRIA PAGeNet</a></figcaption>
           </figure>
           <h3>What is PAGeNet?</h3>
           <p>The <b>Philippine Active Geodetic Network</b>: NAMRIA's network of permanent,
@@ -462,12 +534,53 @@
         button.setAttribute("aria-expanded", open);
       });
 
+      // Click the photo to see it full screen
+      const photoButton = div.querySelector(".photo-button");
+      if (photoButton) {
+        photoButton.addEventListener("click", () => openLightbox(photoButton.querySelector("img")));
+      }
+
       // Stop clicks and scrolls inside the box from moving the map
       L.DomEvent.disableClickPropagation(div);
       L.DomEvent.disableScrollPropagation(div);
       return div;
     };
     about.addTo(map);
+
+    // 7b. Full-screen photo viewer ("lightbox"). Close with ✕, a click outside the text, or Esc.
+    const lightbox = document.createElement("div");
+    lightbox.className = "lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Station photo");
+    lightbox.innerHTML = `
+      <button class="lightbox-close" type="button" aria-label="Close">✕</button>
+      <img alt="">
+      <p class="lightbox-caption">
+        <b>What you're looking at:</b> the white dome is the <b>GNSS antenna</b>, bolted to a fixed mount
+        so it never moves. The cabinet holds the <b>receiver</b> and power supply, which stream data to NAMRIA
+        around the clock. The fence keeps people and animals away from the antenna.<br>
+        Photo: <a href="https://pagenet.namria.gov.ph/AGN/AGSmain.aspx" target="_blank" rel="noopener">NAMRIA PAGeNet</a>
+      </p>`;
+    document.body.appendChild(lightbox);
+
+    function openLightbox(thumbnail) {
+      const big = lightbox.querySelector("img");
+      big.src = thumbnail.currentSrc || thumbnail.src;
+      big.alt = thumbnail.alt;
+      lightbox.classList.add("open");
+      lightbox.querySelector(".lightbox-close").focus();
+    }
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+    }
+    lightbox.addEventListener("click", (event) => {
+      // Clicking the caption text (or its link) doesn't close the viewer
+      if (!event.target.closest(".lightbox-caption")) closeLightbox();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeLightbox();
+    });
 
     // 8. The year filter box (bottom-left): "From" and "To" sliders plus a ▶ button
     //    that plays the network growing year by year.
