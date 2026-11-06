@@ -174,6 +174,37 @@
     }
     .about-photo figcaption { margin-top: 4px; font-size: 11px; color: #bccbc8; }
 
+    /* ---------- Year filter (bottom-left) ---------- */
+    .year-filter {
+      background: #fffdf7;
+      color: #17262b;
+      padding: 12px 14px;
+      border-radius: 8px;
+      width: 240px;
+      font-size: 13px;
+    }
+    .year-head { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px; }
+    #year-label { font-weight: 700; color: #b8501c; }
+    .year-filter label {
+      display: grid;
+      grid-template-columns: 40px 1fr; /* same label width, so both sliders line up */
+      align-items: center;
+      margin: 4px 0;
+    }
+    .year-filter input[type="range"] { width: 100%; margin: 0; accent-color: #2f6fb0; }
+    .year-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .year-actions button {
+      flex: 1;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font: 600 13px system-ui, sans-serif;
+      cursor: pointer;
+      background: #17262b;
+      color: #f5f2ea;
+    }
+    .year-actions button + button { background: #e3ddd0; color: #17262b; }
+
     /* Hide the square focus box browsers draw around a clicked marker */
     path.leaflet-interactive:focus { outline: none; }
   </style>
@@ -301,16 +332,41 @@
         // Zoom the map to fit all stations
         map.fitBounds(layer.getBounds(), { padding: [30, 30] });
 
-        // 5. Compute the KPIs from the properties
-        const stations = data.features.map((f) => f.properties);
-        const igs = stations.filter((s) => s.igs_station);
-        const provinces = new Set(stations.map((s) => s.province));
-        const newest = Math.max(...stations.map((s) => s.year_installed));
+        // Keep every marker so the filter can show and hide them
+        const allMarkers = layer.getLayers();
+        const years = allMarkers.map((m) => m.feature.properties.year_installed);
+        const firstYear = Math.min(...years);
+        const lastYear = Math.max(...years);
 
-        document.getElementById("kpi-total").textContent = stations.length;
-        document.getElementById("kpi-igs").textContent = igs.length;
-        document.getElementById("kpi-provinces").textContent = provinces.size;
-        document.getElementById("kpi-newest").textContent = newest;
+        // 5. KPIs: computed from the stations currently shown
+        function updateKpis(stations) {
+          const igs = stations.filter((s) => s.igs_station);
+          const provinces = new Set(stations.map((s) => s.province));
+          const newest = stations.length ? Math.max(...stations.map((s) => s.year_installed)) : "–";
+
+          document.getElementById("kpi-total").textContent = stations.length;
+          document.getElementById("kpi-igs").textContent = igs.length;
+          document.getElementById("kpi-provinces").textContent = provinces.size;
+          document.getElementById("kpi-newest").textContent = newest;
+        }
+
+        // 6. Year filter: show only stations installed from `from` to `to`
+        function applyYearFilter(from, to) {
+          const shown = [];
+          allMarkers.forEach((marker) => {
+            const year = marker.feature.properties.year_installed;
+            if (year >= from && year <= to) {
+              layer.addLayer(marker);
+              shown.push(marker.feature.properties);
+            } else {
+              layer.removeLayer(marker);
+            }
+          });
+          updateKpis(shown);
+        }
+
+        addYearFilter(firstYear, lastYear, applyYearFilter);
+        applyYearFilter(firstYear, lastYear);
       })
       .catch((error) => {
         // Most common cause: opening this file directly instead of through a server
@@ -372,6 +428,78 @@
       return div;
     };
     about.addTo(map);
+
+    // 8. The year filter box (bottom-left): "From" and "To" sliders plus a ▶ button
+    //    that plays the network growing year by year.
+    function addYearFilter(firstYear, lastYear, onChange) {
+      const control = L.control({ position: "bottomleft" });
+      control.onAdd = () => {
+        const div = L.DomUtil.create("div", "year-filter");
+        div.innerHTML = `
+          <div class="year-head">
+            <b>Installed</b>
+            <span id="year-label">${firstYear}–${lastYear}</span>
+          </div>
+          <label>From <input id="year-from" type="range" min="${firstYear}" max="${lastYear}" value="${firstYear}"></label>
+          <label>To <input id="year-to" type="range" min="${firstYear}" max="${lastYear}" value="${lastYear}"></label>
+          <div class="year-actions">
+            <button id="year-play" type="button">▶ Play</button>
+            <button id="year-reset" type="button">Reset</button>
+          </div>`;
+        L.DomEvent.disableClickPropagation(div);
+        L.DomEvent.disableScrollPropagation(div);
+        return div;
+      };
+      control.addTo(map);
+
+      const fromInput = document.getElementById("year-from");
+      const toInput = document.getElementById("year-to");
+      const label = document.getElementById("year-label");
+      const playButton = document.getElementById("year-play");
+      let timer = null;
+
+      function update(changed) {
+        let from = Number(fromInput.value);
+        let to = Number(toInput.value);
+        // Don't let the sliders cross
+        if (from > to) {
+          if (changed === fromInput) toInput.value = to = from;
+          else fromInput.value = from = to;
+        }
+        label.textContent = from === to ? `${from}` : `${from}–${to}`;
+        onChange(from, to);
+      }
+
+      function stop() {
+        clearInterval(timer);
+        timer = null;
+        playButton.textContent = "▶ Play";
+      }
+
+      fromInput.addEventListener("input", () => { stop(); update(fromInput); });
+      toInput.addEventListener("input", () => { stop(); update(toInput); });
+
+      // Play: start at the first year and add one year every 0.7 seconds
+      playButton.addEventListener("click", () => {
+        if (timer) return stop();
+        fromInput.value = firstYear;
+        toInput.value = firstYear;
+        update(toInput);
+        playButton.textContent = "⏸ Pause";
+        timer = setInterval(() => {
+          if (Number(toInput.value) >= lastYear) return stop();
+          toInput.value = Number(toInput.value) + 1;
+          update(toInput);
+        }, 700);
+      });
+
+      document.getElementById("year-reset").addEventListener("click", () => {
+        stop();
+        fromInput.value = firstYear;
+        toInput.value = lastYear;
+        update(toInput);
+      });
+    }
 
     // ---------- TRY THIS ----------
     // a) Find the PAGeNet station nearest your home town. Which one is it?
